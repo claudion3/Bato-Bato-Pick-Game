@@ -1,47 +1,59 @@
 #import getpass to hide player choice
-import getpass
+import random
+from threading import Timer
+import asyncio
 
 
 #Discription of the game
 print('This game call Rock, Paper, Scissors\n(aka \"Ro-Sham-Bo\", janken, \"Bato, Bato, Pick\"  and \"Scissors, Paper, Stone\")')
 print('It\'s easy to play it, just follow the instruction\n')
 
-#name of the players
-A_player=input("Player number 1, Please enter your name: ")
-print(A_player)
-B_player=input("Player number 2, Please enter your name: ")
-print(B_player,"\n")
-#choice of the players
-print("1)Rock\n2)Paper\n3)Scissor\n")
  
-#entering the choice
-A_choose=int(getpass.getpass("Enter the number of your choose: "))
-B_choose=int(getpass.getpass("Enter the number of your choose: "))
-    
-#function of game
-def game(a,b):
-    if(a==1 and b==2):
-        print("The winner is ",B_player)
-    elif(a==1 and b==3):
-        print("The winner is ",A_player)
-    elif(a==1 and b==1):
-        print("Try again")
-    elif(a==2 and b==1):
-        print("The winner is ",A_player)
-    elif(a==2 and b==3):
-        print("The winner is ",B_player)
-    elif(a==2 and b==2):
-        print("Try again")
-    elif(a==3 and b==1):
-        print("The winner is ",B_player)
-    elif(a==3 and b==1):
-        print("The winner is ",B_player)
-    elif(a==3 and b==2):
-        print("The winner is ",A_player)
-    elif(a==3 and b==3):
-        print("Try again")
+ 
+def winner(a,b):
+    if a=="Rock" and b=="Paper":
+        print("Machine win")
+    elif a=="Rock"and b=="Scissor":
+        print("you win")
+    elif a=="Paper"and b=="Scissor":
+        print("Machine win")
+    elif a=="Paper"and b=="Rock":
+        print("you win")
+    elif a=="Scissor"and b=="Paper":
+        print("you win")
+    elif a=="Scissor"and b=="Rock":
+        print("Machine win")
     else:
-        print("Invalid input")
+        print("null")
 
-#call the function
-game(A_choose,B_choose)
+   
+  
+async def main():
+    A_player=input("Please enter your name: ")
+    print("1)Rock\n2)Paper\n3)Scissor\n")
+    A_choose=int(input(A_player+ " Enter the number of your choose: "))
+    
+    if A_choose==1:
+        A_playerChoice="Rock"
+    elif A_choose==2:
+        A_playerChoice="Paper"   
+    elif A_choose==3:
+        A_playerChoice="Scissor"
+    else:
+        A_playerChoice="error"
+    print(A_player+" choose  "+ A_playerChoice)
+     
+
+    await asyncio.sleep(2)     
+    answer = ["Rock", "Paper", "Scissor"]
+    B_playerChoice=random.choice(answer)
+    print("Machine choose  "+B_playerChoice)
+    await asyncio.sleep(3)
+    winner(A_playerChoice,B_playerChoice)
+    
+asyncio.run(main())
+
+
+
+
+ 
